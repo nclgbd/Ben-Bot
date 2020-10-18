@@ -16,10 +16,17 @@ with open("data/ben_data.json", "r") as f:
 TOKEN = data["token"]
 PREFIX = data["prefix"]
 BEN_ID = "213501169077583884"
+DYLAN_ID = "127611871003017218"
+ZAE_ID = "108299700599271424"
 DATA = "data/ben_data.json"
 client = commands.Bot(command_prefix = PREFIX)
 nlp = None
-
+DYLAN = f'<@!{DYLAN_ID}>'
+ZAE = f'<@!{ZAE_ID}>'
+global dylan_count
+dylan_count = 0
+global zae_count
+zae_count = 0
 
 
 @client.event
@@ -40,8 +47,33 @@ async def on_ready():
 @client.command(name='ben',
                 description='says a random thing that ben has said in this server')
 async def ben_says(ctx):
-    await ctx.send(random.choice(list(ben_data.values())))
+    resp = random.choice(list(ben_data.values()))
+    await ctx.send(resp)
     
+    if DYLAN in resp:
+        global dylan_count
+        await ctx.send(f"Dylan streak has been broken! Ben Bot messages since last ping: {dylan_count}")
+        dylan_count = 0
+        
+    if ZAE in resp:
+        global zae_count
+        await ctx.send(f"Zaenia streak has been broken! Ben Bot messages since last ping: {zae_count}")
+        zae_count = 0
+        
+    dylan_count += 1
+    zae_count += 1
+    
+ 
+@client.command(name='dylan',
+                description="returns how long it's been since ben bot inadvertently pings dylan")
+async def ping_dylan(ctx):
+    await ctx.send(f"Dylan hasn't been inadvertently pinged in {dylan_count} commands")
+    
+    
+@client.command(name='zae',
+                description="returns how long it's been since ben bot inadvertently pings dylan")
+async def ping_dylan(ctx):
+    await ctx.send(f"Zaenia hasn't been inadvertently pinged in {zae_count} commands")
  
     
 @client.command(name='ping',
