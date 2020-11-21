@@ -18,11 +18,13 @@ PREFIX = data["prefix"]
 BEN_ID = "213501169077583884"
 DYLAN_ID = "127611871003017218"
 ZAE_ID = "108299700599271424"
+CAIT_ID = "210001707814354945"
 DATA = "data/ben_data.json"
 client = commands.Bot(command_prefix = PREFIX)
 nlp = None
 DYLAN = f'<@!{DYLAN_ID}>'
 ZAE = f'<@!{ZAE_ID}>'
+CAIT = f'<@!{CAIT_ID}>'
 global dylan_count
 dylan_count = 0
 global zae_count
@@ -42,6 +44,11 @@ async def on_ready():
     '''
     await client.change_presence(activity=discord.Game(name='!help for bot info', type=1))
     
+    
+@client.command(name='cait',
+                description='simply says happy birthday to cait')
+async def happy_birthday_cait(ctx):
+    await ctx.send(f'Happy Birthday {CAIT}')
     
     
 @client.command(name='ben',
