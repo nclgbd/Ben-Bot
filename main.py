@@ -45,11 +45,7 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name='!help for bot info', type=1))
     
     
-@client.command(name='cait',
-                description='simply says happy birthday to cait')
-async def happy_birthday_cait(ctx):
-    await ctx.send(f'Happy Birthday {CAIT}')
-    
+ 
     
 @client.command(name='ben',
                 description='says a random thing that ben has said in this server')
